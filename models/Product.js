@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const {appConfig} = require('../config')
+
 const Schema = mongoose.Schema
 
 const ProductSchema = Schema({
@@ -13,5 +15,15 @@ const ProductSchema = Schema({
 
     timestamps : true
 })
+
+// metodo para guadar la imagen en la base de datos
+ProductSchema.methods.setImgUrl = function setImgUrl(filename){
+
+        const { host, port } = appConfig
+        this.imgUrl=`${host}:${port}/public/${filename}`
+
+}
+
+
 
 module.exports = mongoose.model('Products', ProductSchema)
